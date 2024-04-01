@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="le_mur.View.FoldersPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame HasShadow="False" CornerRadius="5" Padding="2,2,2,10" BackgroundColor="black" Margin="5,5,5,0">
+                <Frame HasShadow="False" CornerRadius="3" BackgroundColor="White" Padding="12" HeightRequest="30">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="6*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image Source="back.png" Grid.Column="0">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BackCommand}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+
+                        <Image Source="addFolder.png" Grid.Column="3">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding AddCommand}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+
+                        <Label Text="Edit" FontSize="16" FontAttributes="Bold" TextColor="Black" Grid.Column="2" IsVisible="{Binding EditIsVisible}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding EditCommand}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                    </Grid>
+                </Frame>
+            </Frame>
+
+            <Frame HasShadow="False" CornerRadius="10" Padding="2" BackgroundColor="black" Grid.Column="0" Margin="8,10,8,0">
+                <Frame HasShadow="False" CornerRadius="8" BackgroundColor="White" Padding="10,5">
+                    <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                        <Image Source="search.png" WidthRequest="30"/>
+                        <Entry Placeholder="Search" HorizontalOptions="FillAndExpand" Text="{Binding SearchRequest}" PlaceholderColor="Gray" TextColor="Black"/>
+                    </StackLayout>
+                </Frame>
+            </Frame>
+
+            <ListView x:Name="foldersList" ItemsSource="{Binding Folders}" HasUnevenRows="True" SelectionMode="None" Margin="0,10">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <StackLayout x:Name="Item">
+                                    <Frame HasShadow="False" CornerRadius="5" Padding="2,2,2,10" BackgroundColor="black" Margin="5,0,5,10">
+                                        <Frame HasShadow="False" CornerRadius="3" BackgroundColor="White" Padding="8">
+                                            <Grid Padding="15,5">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="3*" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Image Source="folder.png" Grid.Column="0" HeightRequest="70"/>
+                                                <Label Margin="15,0" Grid.Column="1" VerticalOptions="Center" Text="{Binding Name}" FontFamily="MontsseratMedium" FontAttributes="Bold" FontSize="18" TextColor="Black"/>
+
+                                                <Frame HasShadow="False" CornerRadius="20" Padding="3" BackgroundColor="black" Grid.Column="2">
+                                                    <Frame HasShadow="False" CornerRadius="16" BackgroundColor="White" Padding="4">
+                                                        <Image HeightRequest="50">
+                                                            <Image.Triggers>
+                                                                <DataTrigger Binding="{Binding IsShow}" TargetType="Image" Value="true">
+                                                                    <Setter Property="Source" Value="showing.png"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding IsShow}" TargetType="Image" Value="false">
+                                                                    <Setter Property="Source" Value="hidden.png"/>
+                                                                </DataTrigger>
+                                                            </Image.Triggers>
+                                                        </Image>
+                                                        <Frame.GestureRecognizers>
+                                                            <TapGestureRecognizer Command="{Binding Source={x:Reference foldersList}, Path=BindingContext.StatusChangeCommand}" CommandParameter="{Binding Id}"/>
+                                                        </Frame.GestureRecognizers>
+                                                    </Frame>
+                                                </Frame>
+                                            </Grid>
+                                        </Frame>
+                                    </Frame>
+                                </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

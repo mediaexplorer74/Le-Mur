@@ -5,6 +5,7 @@
              xmlns:vm="clr-namespace:le_mur" 
              xmlns:local="clr-namespace:le_mur.View"
              xmlns:extensions="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:rox="clr-namespace:Rox;assembly=Rox.Xamarin.Video.Portable"
              x:Class="le_mur.View.ChannelPage"
              Background="white">
 
