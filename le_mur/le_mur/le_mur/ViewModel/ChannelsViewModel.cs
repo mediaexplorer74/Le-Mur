@@ -156,9 +156,9 @@ namespace le_mur.ViewModel
 
         }
 
-        private void OnFoldersCommand()
+        private async void OnFoldersCommand()
         {
-
+            await Navigation.PushAsync(new FoldersPage());
         }
 
         private void OnTapCommand(object parameter)
