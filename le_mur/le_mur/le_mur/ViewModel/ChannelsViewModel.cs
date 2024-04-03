@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using le_mur.View.Folders;
 using TL;
 using Xamarin.Forms;
 
@@ -156,9 +157,9 @@ namespace le_mur.ViewModel
 
         }
 
-        private void OnFoldersCommand()
+        private async void OnFoldersCommand()
         {
-
+            await Navigation.PushAsync(new FoldersPage());
         }
 
         private void OnTapCommand(object parameter)
@@ -184,7 +185,7 @@ namespace le_mur.ViewModel
         private void OnStatusChangeCommand(object parameter)
         {
             var id = (InputPeer)parameter;
-            Channels.Where(x => x.Id == id).First().IsShow = !Channels.Where(x => x.Id == id).First().IsShow;
+            Channels.First(x => x.Id == id).IsShow ^= true;
         }
 
         private async void OnChatCommand(object parameter)

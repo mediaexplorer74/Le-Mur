@@ -7,17 +7,18 @@ using TL;
 using Xamarin.Forms;
 using le_mur.Helpers;
 using System.IO;
+using System.Collections.ObjectModel;
 
 namespace le_mur.Model
 {
-    public class ChatInfo : INotifyPropertyChanged
+    public class Folder : INotifyPropertyChanged
     {
-        InputPeer id;
-        string title;
-        ImageSource image;
+        int id;
+        string name;
+        ObservableCollection<ChatInfo> chats;
         bool isShow = true;
 
-        public InputPeer Id
+        public int Id
         {
             get { return id; }
             set
@@ -27,23 +28,23 @@ namespace le_mur.Model
             }
         }
 
-        public string Title
+        public string Name
         {
-            get { return title; }
+            get { return name; }
             set
             {
-                title = value;
-                OnPropertyChanged("Title");
+                name = value;
+                OnPropertyChanged("Name");
             }
         }
 
-        public ImageSource Image
+        public ObservableCollection<ChatInfo> Chats
         {
-            get { return image; }
+            get { return chats; }
             set
             {
-                image = value;
-                OnPropertyChanged("Image");
+                chats = value;
+                OnPropertyChanged("Chats");
             }
         }
 
@@ -57,20 +58,28 @@ namespace le_mur.Model
             }
         }
 
-        public ChatInfo(InputPeer id, string title)
+        public Folder()
         {
-            Id = id;
-            Title = title;
+            Chats = new ObservableCollection<ChatInfo>();
         }
 
-        public ChatInfo(InputPeer id)
+        public Folder(string name) : this() 
+        {
+            Name = name;
+        }
+        public Folder(int id, string name) : this(name)
         {
             Id = id;
         }
 
-        public void SetImage(byte[] image)
+        public Folder(int id)
         {
-            Image = ImageSource.FromStream(() => new MemoryStream(image));
+            // todo поиск в бд
+
+            this.id = id;
+            name = $@"New Folder {id}";
+            chats = new ObservableCollection<ChatInfo>();
+            isShow = true;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
+using le_mur.View.Folders;
 using Xamarin.Forms;
 
 namespace le_mur.ViewModel.Auth
@@ -33,7 +34,7 @@ namespace le_mur.ViewModel.Auth
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"An error occurred: {ex.Message}");
+                Console.WriteLine($@"An error occurred: {ex.Message}");
                 status = AuthStatus.NeedAuth;
                 PreferencesHelper.SetPhoneNumber("");
             }
@@ -46,6 +47,8 @@ namespace le_mur.ViewModel.Auth
                 case AuthStatus.Ok: await Navigation.PushAsync(new FeedPage()); break;
                 case AuthStatus.NeedAuth: await Navigation.PushAsync(new NumberPage()); break;
                 case AuthStatus.NeedCode: await Navigation.PushAsync(new CodePage(PreferencesHelper.GetPhoneNumber())); break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }
