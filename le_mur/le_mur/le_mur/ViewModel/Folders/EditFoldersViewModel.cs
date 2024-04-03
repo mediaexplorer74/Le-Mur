@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using le_mur.View.Folders;
-using TL;
 using Xamarin.Forms;
 using Folder = le_mur.Model.Folder;
 
@@ -86,7 +85,7 @@ namespace le_mur.ViewModel.Folders
         {
             await Navigation.PushAsync(new AddFolderPage((int)id));
         }
-        private void OnDeleteCommand()
+        private void OnDeleteCommand(object id)
         {
         }
     }

@@ -8,13 +8,16 @@ namespace le_mur.ViewModel.Folders
 {
     public class FoldersViewModel : BaseViewModel
     {
+        public INavigation Navigation { get; set; }
         private readonly ObservableCollection<Folder> _allFolders;
-
         private bool _editIsVisible;
-
         private ObservableCollection<Folder> _folders;
-
         private string _searchRequest;
+
+        public Command BackCommand { get; }
+        public Command AddCommand { get; }
+        public Command StatusChangeCommand { get; }
+        public Command EditCommand { get; }
 
         public FoldersViewModel()
         {
@@ -30,13 +33,6 @@ namespace le_mur.ViewModel.Folders
             };
             Folders = _allFolders;
         }
-
-        public INavigation Navigation { get; set; }
-
-        public Command BackCommand { get; }
-        public Command AddCommand { get; }
-        public Command StatusChangeCommand { get; }
-        public Command EditCommand { get; }
 
         public ObservableCollection<Folder> Folders
         {
@@ -81,11 +77,7 @@ namespace le_mur.ViewModel.Folders
 
         private void Search()
         {
-            var list = _allFolders.Where(c => c.Name.ToLower().Contains(SearchRequest.ToLower())).ToList();
-            var collection = new ObservableCollection<Folder>();
-            foreach (var item in list)
-                collection.Add(item);
-            Folders = collection;
+            Folders = new ObservableCollection<Folder>(_allFolders.Where(x => x.Name.ToLower().Contains(SearchRequest.ToLower())).ToList());
         }
 
         private async void OnAddCommand()
@@ -93,8 +85,9 @@ namespace le_mur.ViewModel.Folders
             await Navigation.PushAsync(new AddFolderPage());
         }
 
-        private void OnBackCommand()
+        private async void OnBackCommand()
         {
+            await Navigation.PopAsync();
         }
 
         private async void OnEditCommand()

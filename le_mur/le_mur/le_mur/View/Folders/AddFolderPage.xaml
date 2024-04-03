@@ -23,7 +23,6 @@
                                 <TapGestureRecognizer Command="{Binding BackCommand}"/>
                             </Image.GestureRecognizers>
                         </Image>
-
                     </Grid>
                 </Frame>
             </Frame>
@@ -41,7 +40,7 @@
                                     <Frame HasShadow="False" CornerRadius="10" Padding="2" BackgroundColor="black" Margin="8,10,8,0" HorizontalOptions="FillAndExpand">
                                         <Frame HasShadow="False" CornerRadius="8" BackgroundColor="White" Padding="10,5">
                                             <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                                                <Entry 
+                                                <Entry
                                                     Text="{Binding FolderName}"
                                                     Placeholder="Folder name" 
                                                     HorizontalOptions="FillAndExpand" 
@@ -77,6 +76,23 @@
                                         FontAttributes="Bold" 
                                         Padding="50,0" />
                                 </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </Frame>
+
+                    <!-- поиск -->
+                    <Frame HasShadow="False" CornerRadius="10" Padding="2" BackgroundColor="black" Margin="20,10,20,0">
+                        <Frame HasShadow="False" CornerRadius="8" BackgroundColor="White" Padding="10,5">
+                            <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                <Image
+                                    Source="search.png" 
+                                    WidthRequest="30" />
+                                <Entry
+                                    Text="{Binding SearchRequest}" 
+                                    Placeholder="Search" 
+                                    PlaceholderColor="Gray" 
+                                    TextColor="Black"
+                                    HorizontalOptions="FillAndExpand" />
                             </StackLayout>
                         </Frame>
                     </Frame>

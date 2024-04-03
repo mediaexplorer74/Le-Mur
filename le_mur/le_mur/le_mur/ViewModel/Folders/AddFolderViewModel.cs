@@ -1,4 +1,6 @@
-﻿using le_mur.Model;
+﻿using System;
+using System.Collections.Generic;
+using le_mur.Model;
 using le_mur.NetworkCalling;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -15,17 +17,22 @@ namespace le_mur.ViewModel.Folders
         public INavigation Navigation { get; set; }
         private Folder _folder;
         private ObservableCollection<ChatInfo> _channels;
+        private ObservableCollection<ChatInfo> _allChannels;
+        private string _searchRequest;
         public Command CancelCommand { get; }
         public Command SaveCommand { get; }
         public Command StatusChangeCommand { get; }
+        public Command BackCommand { get; }
 
         public AddFolderViewModel()
         {
             this.CancelCommand = new Command(this.OnCancelCommand);
             this.SaveCommand = new Command(this.OnSaveCommand);
             this.StatusChangeCommand = new Command(OnStatusChangeCommand);
+            this.BackCommand = new Command(OnBackCommand);
             _folder = new Folder();
             _channels = new ObservableCollection<ChatInfo>();
+            _allChannels = new ObservableCollection<ChatInfo>();
             GetAllChannels();
         }
 
@@ -47,6 +54,7 @@ namespace le_mur.ViewModel.Folders
                 }
             }
         }
+
         public ObservableCollection<ChatInfo> Channels
         {
             get => _channels;
@@ -60,19 +68,35 @@ namespace le_mur.ViewModel.Folders
             }
         }
 
+        public string SearchRequest
+        {
+            get => _searchRequest;
+            set
+            {
+                if (_searchRequest != value)
+                {
+                    _searchRequest = value;
+                    Search();
+                    OnPropertyChanged("SearchRequest");
+                }
+            }
+        }
+
         private async void GetAllChannels()
         {
             var chats = await TelegramApi.GetChatsInfo();
             foreach (var item in chats)
             {
                 item.IsShow = false;
-                _channels.Add(item);
+                _allChannels.Add(item);
+                Channels.Add(item);
             }
         }
 
         private async void SetVisibleChannels()
         {
-            _channels = new ObservableCollection<ChatInfo>(_channels.Where(x => x.IsShow = _folder.Chats.Any(item => item.Id == x.Id)).ToList());
+            _allChannels = new ObservableCollection<ChatInfo>(_allChannels.Where(x => x.IsShow = _folder.Chats.Any(item => item.Id == x.Id)).ToList());
+            Channels = new ObservableCollection<ChatInfo>(_allChannels);
         }
 
         private async void OnCancelCommand()
@@ -98,6 +122,16 @@ namespace le_mur.ViewModel.Folders
                 _folder.Chats.Add(new ChatInfo(id));
             else
                 _folder.Chats.Remove(_folder.Chats.First(x => x.Id == id));
+        }
+
+        private async void OnBackCommand()
+        {
+            await Navigation.PopAsync();
+        }
+
+        private void Search()
+        {
+            Channels = new ObservableCollection<ChatInfo>(_allChannels.Where(x => x.Title.ToLower().Contains(SearchRequest.ToLower())).ToList());
         }
     }
 }
