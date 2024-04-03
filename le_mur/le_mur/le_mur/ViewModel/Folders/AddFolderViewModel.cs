@@ -2,6 +2,7 @@
 using le_mur.NetworkCalling;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using le_mur.View.Folders;
 using TL;
 using Xamarin.Forms;
@@ -69,9 +70,9 @@ namespace le_mur.ViewModel.Folders
             }
         }
 
-        private void SetVisibleChannels()
+        private async void SetVisibleChannels()
         {
-            _channels = (ObservableCollection<ChatInfo>)_channels.Where(x => x.IsShow = _folder.Chats.Any(item => item.Id == x.Id));
+            _channels = new ObservableCollection<ChatInfo>(_channels.Where(x => x.IsShow = _folder.Chats.Any(item => item.Id == x.Id)).ToList());
         }
 
         private async void OnCancelCommand()
