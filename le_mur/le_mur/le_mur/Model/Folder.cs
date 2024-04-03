@@ -58,17 +58,28 @@ namespace le_mur.Model
             }
         }
 
-        public Folder(int id, string name)
+        public Folder()
         {
-            Id = id;
-            Name = name;
             Chats = new ObservableCollection<ChatInfo>();
         }
 
-        public Folder(string name)
+        public Folder(string name) : this() 
         {
             Name = name;
-            Chats = new ObservableCollection<ChatInfo>();
+        }
+        public Folder(int id, string name) : this(name)
+        {
+            Id = id;
+        }
+
+        public Folder(int id)
+        {
+            // todo поиск в бд
+
+            this.id = id;
+            name = $@"New Folder {id}";
+            chats = new ObservableCollection<ChatInfo>();
+            isShow = true;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

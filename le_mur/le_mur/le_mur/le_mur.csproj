@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -34,7 +35,10 @@
     <Compile Update="View\ChannelPage.xaml.cs">
       <DependentUpon>ChannelPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="View\FoldersPage.xaml.cs">
+    <Compile Update="View\Folders\EditFoldersPage.xaml.cs">
+      <DependentUpon>EditFoldersPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="View\Folders\FoldersPage.xaml.cs">
       <DependentUpon>FoldersPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -52,7 +56,10 @@
     <EmbeddedResource Update="View\FeedPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="View\FoldersPage.xaml">
+    <EmbeddedResource Update="View\Folders\AddFolderPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="View\Folders\FoldersPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
