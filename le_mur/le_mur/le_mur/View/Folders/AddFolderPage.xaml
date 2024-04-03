@@ -30,7 +30,7 @@
             <ScrollView>
                 <StackLayout>
                     <!-- рамка с папкой -->
-                    <Frame HasShadow="False" CornerRadius="5" Padding="2,2,2,10" BackgroundColor="black" Margin="5,0,5,10">
+                    <Frame HasShadow="False" CornerRadius="5" Padding="2,2,2,10" BackgroundColor="black" Margin="5">
                         <Frame HasShadow="False" CornerRadius="3" BackgroundColor="White" Padding="8">
 
                             <!-- папка -->
@@ -81,7 +81,7 @@
                     </Frame>
 
                     <!-- поиск -->
-                    <Frame HasShadow="False" CornerRadius="10" Padding="2" BackgroundColor="black" Margin="20,10,20,0">
+                    <Frame HasShadow="False" CornerRadius="10" Padding="2" BackgroundColor="black" Margin=" 5, 5, 5, 10">
                         <Frame HasShadow="False" CornerRadius="8" BackgroundColor="White" Padding="10,5">
                             <StackLayout Orientation="Horizontal" VerticalOptions="Center">
                                 <Image
