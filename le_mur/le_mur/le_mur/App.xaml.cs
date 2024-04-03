@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using le_mur.View.Auth;
 using le_mur.Helpers;
+using le_mur.View.Folders;
 
 namespace le_mur
 {

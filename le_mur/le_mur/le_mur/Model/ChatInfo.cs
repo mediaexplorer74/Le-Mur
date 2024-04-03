@@ -63,6 +63,11 @@ namespace le_mur.Model
             Title = title;
         }
 
+        public ChatInfo(InputPeer id)
+        {
+            Id = id;
+        }
+
         public void SetImage(byte[] image)
         {
             Image = ImageSource.FromStream(() => new MemoryStream(image));

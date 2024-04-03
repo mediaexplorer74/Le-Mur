@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:le_mur.View.Auth;assembly=le_mur" 
+             xmlns:CI="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             x:Class="le_mur.View.Folders.AddFolderPage"
+             Background="#FFF7F7" >
+    <ContentPage.Content>
+
+        <StackLayout>
+            <!-- верхнее меню -->
+            <Frame HasShadow="False" CornerRadius="5" Padding="2,2,2,10" BackgroundColor="black" Margin="5,5,5,0">
+                <Frame HasShadow="False" CornerRadius="3" BackgroundColor="White" Padding="12" HeightRequest="30">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="6*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image Source="back.png" Grid.Column="0">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BackCommand}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+
+                    </Grid>
+                </Frame>
+            </Frame>
+
+            <ScrollView>
+                <StackLayout>
+                    <!-- рамка с папкой -->
+                    <Frame HasShadow="False" CornerRadius="5" Padding="2,2,2,10" BackgroundColor="black" Margin="5,0,5,10">
+                        <Frame HasShadow="False" CornerRadius="3" BackgroundColor="White" Padding="8">
+
+                            <!-- папка -->
+                            <StackLayout Orientation="Vertical">
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="folder.png" HeightRequest="50"/>
+                                    <Frame HasShadow="False" CornerRadius="10" Padding="2" BackgroundColor="black" Margin="8,10,8,0" HorizontalOptions="FillAndExpand">
+                                        <Frame HasShadow="False" CornerRadius="8" BackgroundColor="White" Padding="10,5">
+                                            <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                                <Entry 
+                                                    Text="{Binding FolderName}"
+                                                    Placeholder="Folder name" 
+                                                    HorizontalOptions="FillAndExpand" 
+                                                    PlaceholderColor="Gray" 
+                                                    TextColor="Black"/>
+                                            </StackLayout>
+                                        </Frame>
+                                    </Frame>
+                                </StackLayout>
+
+                                <!-- кнопки -->
+                                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="10">
+                                    <Button 
+                                        Text="Cancel" 
+                                        Command="{Binding CancelCommand}"
+                                        HorizontalOptions="Start" 
+                                        BorderRadius="30" 
+                                        BackgroundColor="White" 
+                                        BorderColor="Black" 
+                                        BorderWidth="3" 
+                                        TextColor="Black" 
+                                        FontAttributes="Bold" 
+                                        Padding="40,0" />
+                                    <Button 
+                                        Text="Save" 
+                                        Command="{Binding SaveCommand}"
+                                        HorizontalOptions="EndAndExpand" 
+                                        BorderRadius="30" 
+                                        BackgroundColor="White"
+                                        BorderColor="Black" 
+                                        BorderWidth="3" 
+                                        TextColor="Black" 
+                                        FontAttributes="Bold" 
+                                        Padding="50,0" />
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </Frame>
+
+                    <!-- список каналов -->
+                    <ListView x:Name="channelsList" ItemsSource="{Binding Channels}" HasUnevenRows="True" SelectionMode="None">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ViewCell.View>
+                                        <StackLayout x:Name="Item">
+                                            <!-- рамка канала -->
+                                            <Frame HasShadow="False" CornerRadius="5" Padding="2,2,2,10" BackgroundColor="black" Margin="5,0,5,10">
+                                                <Frame HasShadow="False" CornerRadius="3" BackgroundColor="White" Padding="12">
+                                                    <Grid Padding="15,5">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="3*" />
+                                                            <ColumnDefinition Width="*" />
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <!-- ава -->
+                                                        <CI:CircleImage Source="{Binding Image}" Grid.Column="0"/>
+                                                        <!-- имя -->
+                                                        <Label 
+                                                            Grid.Column="1" 
+                                                            Text="{Binding Title}"
+                                                            VerticalOptions="Center" 
+                                                            Margin="15,0" 
+                                                            FontFamily="MontsseratMedium" 
+                                                            FontAttributes="Bold" 
+                                                            FontSize="14" 
+                                                            TextColor="Black" />
+
+                                                        <!-- галки -->
+                                                        <StackLayout Grid.Column="2" >
+                                                            <Image WidthRequest="50">
+                                                                <Image.Triggers>
+                                                                    <DataTrigger Binding="{Binding IsShow}" TargetType="Image" Value="true">
+                                                                        <Setter Property="Source" Value="greenCheck.png"/>
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding IsShow}" TargetType="Image" Value="false">
+                                                                        <Setter Property="Source" Value="emptyCheck.png"/>
+                                                                    </DataTrigger>
+                                                                </Image.Triggers>
+                                                            </Image>
+                                                            <StackLayout.GestureRecognizers>
+                                                                <TapGestureRecognizer Command="{Binding Source={x:Reference channelsList}, Path=BindingContext.StatusChangeCommand}" CommandParameter="{Binding Id}"/>
+                                                            </StackLayout.GestureRecognizers>
+                                                        </StackLayout>
+                                                    </Grid>
+
+                                                    <Frame.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding Source={x:Reference channelsList}, Path=BindingContext.ChatCommand}" CommandParameter="{Binding }"/>
+                                                    </Frame.GestureRecognizers>
+                                                </Frame>
+                                            </Frame>
+                                        </StackLayout>
+                                    </ViewCell.View>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
