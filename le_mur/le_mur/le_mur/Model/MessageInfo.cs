@@ -26,6 +26,7 @@ namespace le_mur.Model
         DateTime date;
         string groupName;
         ImageSource groupImage;
+        bool isLiked = false;
 
         public InputPeer ChatId;
 
@@ -144,6 +145,16 @@ namespace le_mur.Model
             {
                 groupImage = value;
                 OnPropertyChanged("GroupImage");
+            }
+        }
+
+        public bool IsLiked
+        {
+            get { return isLiked; }
+            set
+            {
+                isLiked = value;
+                OnPropertyChanged("IsLiked");
             }
         }
 
