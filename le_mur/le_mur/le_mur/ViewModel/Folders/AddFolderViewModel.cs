@@ -19,14 +19,14 @@ namespace le_mur.ViewModel.Folders
         private ObservableCollection<ChatInfo> _channels;
         private ObservableCollection<ChatInfo> _allChannels;
         private string _searchRequest;
-        public Command CancelCommand { get; }
+        public Command ChronicCommand { get; }
         public Command SaveCommand { get; }
         public Command StatusChangeCommand { get; }
         public Command BackCommand { get; }
 
         public AddFolderViewModel()
         {
-            this.CancelCommand = new Command(this.OnCancelCommand);
+            this.ChronicCommand = new Command(this.OnChronicCommand);
             this.SaveCommand = new Command(this.OnSaveCommand);
             this.StatusChangeCommand = new Command(OnStatusChangeCommand);
             this.BackCommand = new Command(OnBackCommand);
@@ -99,9 +99,9 @@ namespace le_mur.ViewModel.Folders
             Channels = new ObservableCollection<ChatInfo>(_allChannels);
         }
 
-        private async void OnCancelCommand()
+        private void OnChronicCommand()
         {
-            await Navigation.PopAsync();
+            
         }
 
         private async void OnSaveCommand()
