@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using le_mur.Consts;
+using TL;
 
 namespace le_mur.Model
 {
@@ -36,6 +38,7 @@ namespace le_mur.Model
             _dates = new DateTime?[7] { new DateTime(2024, 4, 14), null, null, null, null, null, null };
             _startTime = new TimeSpan(9, 0, 0);
             _endTime = new TimeSpan(12, 0, 0);
+            _repeat = RepeatStatus.Weekly;
         }
 
         public int Id
@@ -76,6 +79,25 @@ namespace le_mur.Model
                 OnPropertyChanged("EndTime");
             }
         }
+
+        public string NextSessionStr
+        {
+            get
+            {
+                var day = 
+                    _weekdays
+                        .Where(x => x.HasValue && x > DateTime.Today.DayOfWeek)
+                        ?.Min(x => x - DateTime.Today.DayOfWeek) 
+                    ?? 
+                    _weekdays
+                        .Where(x => x.HasValue && x <= DateTime.Today.DayOfWeek)
+                        ?.Min(x => DateTime.Today.DayOfWeek - x);
+                return day.HasValue ? ((DayOfWeek)day.Value).ToString() : "Not";
+            }
+        }
+
+        public string RepeatStr => _repeat.ToString();
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")

@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using le_mur.Model;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using le_mur.Consts;
 using le_mur.Helpers;
-using TL;
+using le_mur.View.Folders.Timer;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
@@ -73,7 +70,7 @@ namespace le_mur.ViewModel.Folders.Timer
             }
         }
 
-        private void OnSaveCommand()
+        private async void OnSaveCommand()
         {
             //weekdays
             var weekdays = _buttonColors
@@ -104,12 +101,14 @@ namespace le_mur.ViewModel.Folders.Timer
             }
             _timer.Repeat = repeat;
 
-            //todo del
+            //todo del debug
             //todo save into db
             _timer.Weekdays.ForEach(x => Debug.WriteLine(x.HasValue ? x.Value.ToString() : "null"));
             _timer.Dates.ForEach(x => Debug.WriteLine(x.HasValue ? x.Value.ToString() : "null"));
             Debug.WriteLine(_timer.Repeat.ToString());
             Debug.WriteLine($"from {_timer.StartTime} till {_timer.EndTime}");
+
+            await Navigation.PushAsync(new TimersListPage());
         }
 
         private async void OnBackCommand()

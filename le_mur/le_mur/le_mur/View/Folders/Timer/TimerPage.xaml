@@ -4,7 +4,6 @@
              x:Class="le_mur.View.Folders.Timer.TimerPage"
              Background="white" >
 
-    <!-- страница -->
     <ContentPage.Content>
         <StackLayout>
             <!-- верхнее меню -->

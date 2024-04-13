@@ -65,5 +65,8 @@
     <EmbeddedResource Update="View\Folders\Timer\TimerPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="View\Folders\Timer\TimersListPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

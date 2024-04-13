@@ -1,10 +1,4 @@
-﻿using le_mur.ViewModel.Folders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using le_mur.ViewModel.Folders.Timer;
+﻿using le_mur.ViewModel.Folders.Timer;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
