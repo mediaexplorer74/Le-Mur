@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using le_mur.View.Folders;
+using le_mur.View.Folders.Timer;
 using Xamarin.Forms;
 
 namespace le_mur.ViewModel.Auth
@@ -44,7 +45,7 @@ namespace le_mur.ViewModel.Auth
                 await Task.Delay(TimeSpan.FromSeconds(3) - elapsedTime);
             switch (status)
             {
-                case AuthStatus.Ok: await Navigation.PushAsync(new FeedPage()); break;
+                case AuthStatus.Ok: await Navigation.PushAsync(new TimerPage()); break;
                 case AuthStatus.NeedAuth: await Navigation.PushAsync(new NumberPage()); break;
                 case AuthStatus.NeedCode: await Navigation.PushAsync(new CodePage(PreferencesHelper.GetPhoneNumber())); break;
                 default:
