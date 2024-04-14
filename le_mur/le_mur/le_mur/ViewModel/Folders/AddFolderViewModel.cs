@@ -6,7 +6,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using le_mur.View.Folders;
-using le_mur.View.Folders.Timer;
 using TL;
 using Xamarin.Forms;
 using Folder = le_mur.Model.Folder;
@@ -20,14 +19,14 @@ namespace le_mur.ViewModel.Folders
         private ObservableCollection<ChatInfo> _channels;
         private ObservableCollection<ChatInfo> _allChannels;
         private string _searchRequest;
-        public Command ChronicCommand { get; }
+        public Command CancelCommand { get; }
         public Command SaveCommand { get; }
         public Command StatusChangeCommand { get; }
         public Command BackCommand { get; }
 
         public AddFolderViewModel()
         {
-            this.ChronicCommand = new Command(this.OnChronicCommand);
+            this.CancelCommand = new Command(this.OnCancelCommand);
             this.SaveCommand = new Command(this.OnSaveCommand);
             this.StatusChangeCommand = new Command(OnStatusChangeCommand);
             this.BackCommand = new Command(OnBackCommand);
@@ -100,9 +99,9 @@ namespace le_mur.ViewModel.Folders
             Channels = new ObservableCollection<ChatInfo>(_allChannels);
         }
 
-        private async void OnChronicCommand()
+        private async void OnCancelCommand()
         {
-            await Navigation.PushAsync(new TimersListPage());
+            await Navigation.PopAsync();
         }
 
         private async void OnSaveCommand()

@@ -86,51 +86,16 @@
                                             </CarouselView.ItemTemplate>
                                         </CarouselView>
 
-                                        <StackLayout Orientation="Horizontal" Grid.Row="4" HorizontalOptions="End">
-                                            <Frame HasShadow="False" CornerRadius="60" Padding="1" BackgroundColor="black" Margin="0,10">
-                                                <Frame HasShadow="False" CornerRadius="60" Padding="12">
-                                                    <Frame.Triggers>
-                                                        <DataTrigger Binding="{Binding IsLiked}" Value="false" TargetType="Frame">
-                                                            <Setter Property="BackgroundColor" Value="White"/>
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding IsLiked}" Value="true" TargetType="Frame">
-                                                            <Setter Property="BackgroundColor" Value="#CB2828"/>
-                                                        </DataTrigger>
-                                                    </Frame.Triggers>
-                                                    <Image WidthRequest="20">
-                                                        <Image.Triggers>
-                                                            <DataTrigger Binding="{Binding IsLiked}" Value="false" TargetType="Image">
-                                                                <Setter Property="Source" Value="like.png"/>
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding IsLiked}" Value="true" TargetType="Image">
-                                                                <Setter Property="Source" Value="blackheart.png"/>
-                                                            </DataTrigger>
-                                                        </Image.Triggers>
-                                                        <Image.GestureRecognizers>
-                                                            <TapGestureRecognizer Command="{Binding Source={x:Reference messagesList}, Path=BindingContext.LikeCommand}" CommandParameter="{Binding Id}"/>
-                                                        </Image.GestureRecognizers>
-                                                    </Image>
-                                                </Frame>
+                                        <Frame HasShadow="False" CornerRadius="60" Padding="1" BackgroundColor="black" Margin="10" HorizontalOptions="End" Grid.Row="4">
+                                            <Frame HasShadow="False" CornerRadius="60" BackgroundColor="White" Padding="12">
+                                                <Image Source="favourites.png" WidthRequest="20">
+                                                    <Image.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding Source={x:Reference messagesList}, Path=BindingContext.FavouritesCommand}" CommandParameter="{Binding Id}"/>
+                                                    </Image.GestureRecognizers>
+                                                </Image>
                                             </Frame>
-                                            <Frame HasShadow="False" CornerRadius="60" Padding="1" BackgroundColor="black" Margin="5,10,0,10">
-                                                <Frame HasShadow="False" CornerRadius="60" BackgroundColor="White" Padding="12">
-                                                    <Image Source="comment.png" WidthRequest="20">
-                                                        <Image.GestureRecognizers>
-                                                            <TapGestureRecognizer Command="{Binding Source={x:Reference messagesList}, Path=BindingContext.CommentCommand}" CommandParameter="{Binding Id}"/>
-                                                        </Image.GestureRecognizers>
-                                                    </Image>
-                                                </Frame>
-                                            </Frame>
-                                            <Frame HasShadow="False" CornerRadius="60" Padding="1" BackgroundColor="black" Margin="5,10,10,10">
-                                                <Frame HasShadow="False" CornerRadius="60" BackgroundColor="White" Padding="12">
-                                                    <Image Source="favourites.png" WidthRequest="20">
-                                                        <Image.GestureRecognizers>
-                                                            <TapGestureRecognizer Command="{Binding Source={x:Reference messagesList}, Path=BindingContext.FavouritesCommand}" CommandParameter="{Binding Id}"/>
-                                                        </Image.GestureRecognizers>
-                                                    </Image>
-                                                </Frame>
-                                            </Frame>
-                                        </StackLayout>
+                                        </Frame>
+
                                     </Grid>
                                 </Frame>
                             </Frame>

@@ -9,7 +9,6 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using le_mur.View.Folders;
-using le_mur.View.Folders.Timer;
 using Xamarin.Forms;
 
 namespace le_mur.ViewModel.Auth
