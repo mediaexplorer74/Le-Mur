@@ -19,8 +19,6 @@ namespace le_mur.ViewModel
     {
         public INavigation Navigation { get; set; }
         public Command FavouritesCommand { get; }
-        public Command LikeCommand { get; }
-        public Command CommentCommand { get; }
         public Command LoadVideoCommand { get; }
         public Command ToChannelsCommand { get; }
 
@@ -43,8 +41,6 @@ namespace le_mur.ViewModel
         {
             Messages = new ObservableCollection<MessageInfo>();
 
-            LikeCommand = new Command(OnLikeCommand);
-            CommentCommand = new Command(OnCommentCommand);
             FavouritesCommand = new Command(OnFavouritesCommand);
             LoadVideoCommand = new Command(OnLoadVideoCommand);
             ToChannelsCommand = new Command(onChannelsCommand);
@@ -76,16 +72,6 @@ namespace le_mur.ViewModel
         private void OnFavouritesCommand(object obj)
         {
 
-        }
-
-        public void OnCommentCommand(object obj)
-        {
-
-        }
-
-        public void OnLikeCommand(object obj)
-        {
-            Messages.Where(m => m.Id == (int)obj).First().IsLiked = !Messages.Where(m => m.Id == (int)obj).First().IsLiked;
         }
 
         public async void OnLoadVideoCommand(object obj)
