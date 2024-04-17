@@ -23,10 +23,10 @@ namespace le_mur.ViewModel.Folders
 
         public EditFoldersViewModel()
         {
-            BackCommand = new Command(OnBackCommand);
-            ChangeCommand = new Command(OnChangeCommand);
-            DeleteCommand = new Command(OnDeleteCommand);
-            DoneCommand = new Command(OnDoneCommand);
+            this.BackCommand = new Command(this.OnBackCommand);
+            this.ChangeCommand = new Command(this.OnChangeCommand);
+            this.DeleteCommand = new Command(this.OnDeleteCommand);
+            this.DoneCommand = new Command(this.OnDoneCommand);
 
             _allFolders = new ObservableCollection<Folder>
             {
