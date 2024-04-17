@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using le_mur.Model;
 using TL;
@@ -12,6 +13,8 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using le_mur.Consts;
 using le_mur.View;
+using Xamarin.Forms.Internals;
+using le_mur.Helpers;
 
 namespace le_mur.ViewModel
 {
@@ -102,6 +105,39 @@ namespace le_mur.ViewModel
         private async void onChannelsCommand()
         {
             await Navigation.PushAsync(new ChannelsPage());
+        }
+
+        private void UpdateTimers()
+        {
+            var today = DateTime.Today;
+
+            //todo получение всех таймеров из бд
+            var timersList = new List<Model.Timer>() { new Model.Timer(0), new Model.Timer(1) };
+
+
+            for (var index = 0; index < timersList.Count; index++)
+            {
+                var t = timersList[index];
+                var needToChangeDate = t.Dates.Where(date => date.HasValue && date < DateTime.Now).ToList();
+                for (var i = 0; i < needToChangeDate.Count; i++)
+                    switch (t.Repeat)
+                    {
+                        case Timer.RepeatStatus.Not:
+                            needToChangeDate[i] = null;
+                            break;
+                        case Timer.RepeatStatus.Weekly:
+                            if (needToChangeDate[i].HasValue)
+                                needToChangeDate[i] = ((DateTime)needToChangeDate[i]).MoveByWeek();
+                            break;
+                        case Timer.RepeatStatus.Fortnightly:
+                            if (needToChangeDate[i].HasValue)
+                                needToChangeDate[i] = ((DateTime)needToChangeDate[i]).MoveByTwoWeeks();
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                timersList[index].Dates = needToChangeDate.OrderBy(x => x).ThenByDescending(x => x.HasValue).ToArray();
+            }
         }
     }
 }
