@@ -7,7 +7,7 @@ using le_mur.NetworkCalling;
 using System.Collections.Generic;
 using System.Linq;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.CommunityToolkit.Core;
+using Xamarin.CommunityToolkit;//.Core;
 using static System.Net.Mime.MediaTypeNames;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;

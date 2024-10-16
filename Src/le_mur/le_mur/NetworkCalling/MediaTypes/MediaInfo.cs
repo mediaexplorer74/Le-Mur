@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using TL;
-using Xamarin.CommunityToolkit.Core;
+using Xamarin.CommunityToolkit;//.Core;
 using Xamarin.Forms;
 
 namespace le_mur.NetworkCalling.MediaTypes

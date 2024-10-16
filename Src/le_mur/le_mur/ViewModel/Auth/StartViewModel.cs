@@ -35,8 +35,10 @@ namespace le_mur.ViewModel.Auth
             }
             catch (Exception ex)
             {
-                Console.WriteLine($@"An error occurred: {ex.Message}");
+                Debug.WriteLine($@"An error occurred: {ex.Message}");
                 status = AuthStatus.NeedAuth;
+
+                //RnD: temporary set your phone number here
                 PreferencesHelper.SetPhoneNumber("");
             }
 

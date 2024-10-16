@@ -14,13 +14,16 @@
     </ContentPage.Resources>
 
     <StackLayout>
-        <Label Text="Le Mur" FontFamily="Montsserat" FontAttributes="Bold" FontSize="21" TextColor="Black" Margin="20,5,20,0" HorizontalOptions="Start" VerticalOptions="Center"/>
-        <ListView x:Name="messagesList" ItemsSource="{Binding Messages}" HasUnevenRows="True" SelectionMode="None" Margin="5,5">
+        <Label Text="Le Mur" FontFamily="Montsserat" FontAttributes="Bold" FontSize="21" 
+               TextColor="Black" Margin="20,5,20,0" HorizontalOptions="Start" VerticalOptions="Center"/>
+        <ListView x:Name="messagesList" ItemsSource="{Binding Messages}" HasUnevenRows="True"
+                  SelectionMode="None" Margin="5,5">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.View>
-                            <Frame HasShadow="False" CornerRadius="5" Padding="2,2,2,10" BackgroundColor="black" Margin="0,0,0,10">
+                            <Frame HasShadow="False" CornerRadius="5" Padding="2,2,2,10" 
+                                   BackgroundColor="black" Margin="0,0,0,10">
                                 <Frame HasShadow="False" CornerRadius="3" BackgroundColor="White" Padding="0">
                                     <Grid>
                                         <Grid.RowDefinitions>
@@ -47,7 +50,7 @@
                                                     <StackLayout>
                                                         <Frame HasShadow="False" Padding="0">
                                                             <Grid>
-                                                                <extensions:MediaElement ShowsPlaybackControls="True" Source="{Binding Source}" HeightRequest="300"/>
+                                                                <!--extensions:MediaElement ShowsPlaybackControls="True" Source="{Binding Source}" HeightRequest="300"/-->
                                                                 <Image Source="play.png" HeightRequest="300">
                                                                     <Image.GestureRecognizers>
                                                                         <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" CommandParameter="{Binding Filename}"/>

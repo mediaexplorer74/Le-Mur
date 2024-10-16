@@ -63,7 +63,7 @@
                                                     <StackLayout>
                                                         <Frame HasShadow="False" Padding="0">
                                                             <Grid>
-                                                                <extensions:MediaElement ShowsPlaybackControls="True" Source="{Binding Source}" HeightRequest="300"/>
+                                                                <!--extensions:MediaElement ShowsPlaybackControls="True" Source="{Binding Source}" HeightRequest="300"/-->
                                                                 <Image Source="play.png" HeightRequest="300">
                                                                     <Image.GestureRecognizers>
                                                                         <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" CommandParameter="{Binding Filename}"/>

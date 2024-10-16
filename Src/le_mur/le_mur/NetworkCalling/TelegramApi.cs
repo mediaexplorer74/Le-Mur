@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,10 +20,16 @@ namespace le_mur.NetworkCalling
        
 
         public static string filesPath = 
-            Environment.GetFolderPath(/*Environment.SpecialFolder.MyDocuments*/Environment.SpecialFolder.LocalApplicationData);
+            Environment.GetFolderPath
+            (
+                /*Environment.SpecialFolder.MyDocuments*/
+                Environment.SpecialFolder.LocalApplicationData
+             );
 
-        private static string path = filesPath + "\\" + "session.dat";
-            //Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments).Replace("files", "session.dat");
+        private static string path = filesPath
+            + "\\" + "session.dat";
+            //Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+            //.Replace("files", "session.dat");
         static TelegramApi()
         {
             client = new WTelegram.Client(apiId, apiHash, path);
@@ -31,6 +38,7 @@ namespace le_mur.NetworkCalling
         #region Authorization
         static async public Task<AuthStatus> CheckAuth()
         {
+            //TEMP
             PreferencesHelper.SetPhoneNumber("+7***********");
             return await doLogin(PreferencesHelper.GetPhoneNumber());
         }
@@ -59,21 +67,47 @@ namespace le_mur.NetworkCalling
         #region GetChatsList
         static async public Task<List<ChatInfo>> GetChatsInfo()
         {
-            var chats = new List<ChatInfo>();
-            var chatsPhoto = new List<IPeerInfo>();
-            var res = await client.Messages_GetAllChats();
-            foreach (var chat in res.chats.Where(i => i.Value.IsChannel
-            && i.Value.IsActive && ((i.Value as Channel).username != null 
-            || (i.Value as Channel).usernames != null)).ToList())
+            List<ChatInfo> chats = new List<ChatInfo>();
+            List<IPeerInfo> chatsPhoto = new List<IPeerInfo>();
+            Messages_Chats res = new Messages_Chats() { };
+            try
             {
-                chats.Add(new ChatInfo(chat.Value, chat.Value.Title));
-                chatsPhoto.Add(chat.Value);
+                res = await client.Messages_GetAllChats();
             }
-            var images = await GetChatPhotos(chatsPhoto);
-            for (int i = 0; i < images.Count(); i++)
+            catch (Exception ex)
             {
-                chats[i].SetImage(images[i].Result);
+                Debug.WriteLine("[ex] TelegramApi - GetAllChats error: " + ex.Message);
+                return chats;
             }
+
+            if (res != null) 
+            {
+                List<KeyValuePair<long, ChatBase>> ChatList = default;
+
+                try
+                {
+                    ChatList = res.chats.Where(i => i.Value.IsChannel
+                    && i.Value.IsActive && ((i.Value as Channel).username != null
+                    || (i.Value as Channel).usernames != null)).ToList();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("[ex] ChatList forming error: " + ex.Message);                   
+                }
+
+                foreach (KeyValuePair<long, ChatBase> chat in ChatList)
+                {
+                    chats.Add(new ChatInfo(chat.Value, chat.Value.Title));
+                    chatsPhoto.Add(chat.Value);
+                }
+
+                List<Task<byte[]>> images = await GetChatPhotos(chatsPhoto);
+                for (int i = 0; i < images.Count(); i++)
+                {
+                    chats[i].SetImage(images[i].Result);
+                }
+            }
+
             return chats;
         }
         #endregion

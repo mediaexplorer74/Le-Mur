@@ -6,7 +6,7 @@ using le_mur.NetworkCalling;
 using System.Collections.Generic;
 using System.Linq;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.CommunityToolkit.Core;
+using Xamarin.CommunityToolkit;//.Core;
 
 namespace le_mur.ViewModel
 {
@@ -85,7 +85,8 @@ namespace le_mur.ViewModel
 
         public void OnLikeCommand(object obj)
         {
-            Messages.Where(m => m.Id == (int)obj).First().IsLiked = !Messages.Where(m => m.Id == (int)obj).First().IsLiked;
+            Messages.Where(m => m.Id == (int)obj).First().IsLiked 
+                = !Messages.Where(m => m.Id == (int)obj).First().IsLiked;
         }
 
         public async void OnLoadVideoCommand(object obj)

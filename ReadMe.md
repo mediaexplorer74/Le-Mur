@@ -3,6 +3,8 @@
 
 My attempt to "quick research" TG-related Le-Mur cross-platform app + add new UWP "target" for Windows Desktop. :)
 
+## Screenshot(s)
+![](Images/shot01.png)
 
 ## Tech/dev details
 - Engine: Xamarin Forms
@@ -12,11 +14,12 @@ My attempt to "quick research" TG-related Le-Mur cross-platform app + add new UW
 - Min. Win. os build: 16299
 
 ## Status
-- Initial state. Draft.
+- Initial state. Draft. Auth/Login damaged (WTelegram obsolete?)
+- Andromeda adaptation: planning ;)
 
 ## Credits / Thanks
-- [https://github.com/isiziakov](isiziakov)
-- [https://github.com/isiziakov/Le-Mur](Original Le-Mur app)
+- https://github.com/isiziakov Great C# Developer 
+- https://github.com/isiziakov/Le-Mur Original Le-Mur app by isiziakov
 
 ## Licensing
 MIT License
